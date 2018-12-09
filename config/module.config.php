@@ -1,8 +1,10 @@
 <?php
-return array(
-    'view_helpers' => array(
-        'invokables' => array(
-            'coins' => 'Coins\View\Helper\Coins',
-        ),
-    ),
-);
+namespace Coins;
+
+return [
+    'view_helpers' => [
+        'invokables' => [
+            'coins' => View\Helper\Coins::class,
+        ],
+    ],
+];

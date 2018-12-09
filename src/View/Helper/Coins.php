@@ -2,8 +2,8 @@
 
 namespace Coins\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\ItemRepresentation;
+use Zend\View\Helper\AbstractHelper;
 
 /**
  * COinS
@@ -12,26 +12,23 @@ use Omeka\Api\Representation\ItemRepresentation;
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU GPLv3
  */
 
-/**
- * @package Coins\View\Helper
- */
 class Coins extends AbstractHelper
 {
     /**
      * Return a COinS span tag for every passed item.
      *
-     * @param array|Item An array of item records or one item record.
+     * @param ItemRepresentation|ItemRepresentation[] $items One or multiple item representations.
      * @return string
      */
     public function __invoke($items)
     {
         if (!is_array($items)) {
-            return $this->_getCoins($items);
+            return $this->getCoins($items);
         }
 
         $coins = '';
         foreach ($items as $item) {
-            $coins .= $this->_getCoins($item);
+            $coins .= $this->getCoins($item);
         }
         return $coins;
     }
@@ -39,41 +36,46 @@ class Coins extends AbstractHelper
     /**
      * Build and return the COinS span tag for the specified item.
      *
-     * @param Item $item
+     * @param ItemRepresentation $item
      * @return string
      */
-    protected function _getCoins(ItemRepresentation $item)
+    protected function getCoins(ItemRepresentation $item)
     {
-        $coins = array();
+        $coins = [];
 
         $coins['ctx_ver'] = 'Z39.88-2004';
         $coins['rft_val_fmt'] = 'info:ofi/fmt:kev:mtx:dc';
         $coins['rfr_id'] = 'info:sid/omeka.org:generator';
 
         // Set the Dublin Core elements that don't need special processing.
-        $elementNames = array('Creator', 'Subject', 'Publisher', 'Contributor',
-                              'Date', 'Format', 'Source', 'Language', 'Coverage',
-                              'Rights', 'Relation');
-        foreach ($elementNames as $elementName) {
-            $elementName = strtolower($elementName);
-            $elementText = $this->_getElementText($item, $elementName);
-            if (false === $elementText) {
+        $properties = [
+            'creator',
+            'subject',
+            'publisher',
+            'contributor',
+            'date',
+            'format',
+            'source',
+            'language',
+            'coverage',
+            'rights',
+            'relation',
+        ];
+        foreach ($properties as $localName) {
+            $value = $item->value('dcterms:' . $localName, ['type' => 'literal']);
+            if ($value === '') {
                 continue;
             }
 
-            $coins["rft.$elementName"] = $elementText;
+            $coins['rft.' . $localName] = $value;
         }
 
-        // Set the title key from Dublin Core:title.
-        $title = $this->_getElementText($item, 'title');
-        if (false === $title || '' == trim($title)) {
-            $title = '[unknown title]';
-        }
-        $coins['rft.title'] = $title;
+        // Set the title key from display title (generall Dublin Core Title).
+        $coins['rft.title'] = $item->displayTitle();
 
-        // Set the description key from Dublin Core:description.
-        $description = $this->_getElementText($item, 'description');
-        if (false === $description) {
+        // Set the description from display title (generall Dublin Core Description).
+        $description = $item->displayDescription();
+        if ($description) {
             return;
         }
         $coins['rft.description'] = $description;
@@ -105,30 +107,17 @@ class Coins extends AbstractHelper
                     $type = $resourceClass;
             }
         } else {
-            $type = $this->_getElementText($item, 'type');
+            $type = (string) $item->value('dcterms:type');
         }
         $coins['rft.type'] = $type;
 
         // Set the identifier key as the absolute URL of the current page.
-        $coins['rft.identifier'] = $item->url();
+        $coins['rft.identifier'] = $item->url(null, true);
 
         // Build and return the COinS span tag.
-        $coinsSpan = '<span class="Z3988" title="';
-        $coinsSpan .= htmlspecialchars_decode(http_build_query($coins));
-        $coinsSpan .= '"></span>';
+        $coinsSpan = '<span class="Z3988" title="'
+            .  htmlspecialchars_decode(http_build_query($coins))
+            . '"></span>';
         return $coinsSpan;
-    }
-
-    /**
-     * Get the unfiltered element text for the specified item.
-     *
-     * @param Item $item
-     * @param string $elementName
-     * @return string|bool
-     */
-    protected function _getElementText(ItemRepresentation $item, $elementName)
-    {
-        $value = $item->value("dcterms:$elementName", array('type' => 'literal'));
-        return "$value";
     }
 }

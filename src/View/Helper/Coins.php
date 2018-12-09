@@ -75,10 +75,10 @@ class Coins extends AbstractHelper
 
         // Set the description from display title (generall Dublin Core Description).
         $description = $item->displayDescription();
+        // The original plugin returns nothing when there is no description.
         if ($description) {
-            return;
+            $coins['rft.description'] = $description;
         }
-        $coins['rft.description'] = $description;
 
         // Set the type key from item type, map to Zotero item types.
         $resourceClass = $item->resourceClass();

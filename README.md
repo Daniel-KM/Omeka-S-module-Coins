@@ -59,7 +59,7 @@ Copyright
 
 * Copyrigh Roy Rosenzweig Center for History and New Media, 2007-2012
 * Copright BibLibre, 2016-2017
-* Copright Daniel Berthereau, 2018 (see [Daniel-KM] on GitHub)
+* Copright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitHub)
 
 
 [COinS]: https://github.com/biblibre/omeka-s-module-Coins

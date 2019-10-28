@@ -57,7 +57,7 @@ class Module extends AbstractModule
     {
         $view = $event->getTarget();
         foreach ($view->items as $item) {
-          echo $view->coins($item);
+            echo $view->coins($item);
         }
     }
 }

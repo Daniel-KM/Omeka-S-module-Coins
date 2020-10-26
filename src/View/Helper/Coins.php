@@ -2,8 +2,8 @@
 
 namespace Coins\View\Helper;
 
+use Laminas\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\ItemRepresentation;
-use Zend\View\Helper\AbstractHelper;
 
 /**
  * COinS
@@ -103,20 +103,22 @@ class Coins extends AbstractHelper
                     $type = 'document';
                     break;
                 default:
-                    $type = $resourceClass;
+                    $type = $resourceClass->localName();
             }
         } else {
             $type = (string) $item->value('dcterms:type');
         }
-        $coins['rft.type'] = $type;
+
+        if (isset($type)) {
+            $coins['rft.type'] = $type;
+        }
 
         // Set the identifier key as the absolute URL of the current page.
         $coins['rft.identifier'] = $item->url(null, true);
 
         // Build and return the COinS span tag.
-        $coinsSpan = '<span class="Z3988" title="'
-            . htmlspecialchars_decode(http_build_query($coins))
-            . '"></span>';
+        $coinsSpan = sprintf('<span class="Z3988" title="%s"></span>', htmlspecialchars_decode(http_build_query($coins)));
+
         return $coinsSpan;
     }
 }

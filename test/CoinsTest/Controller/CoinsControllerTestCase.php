@@ -2,9 +2,9 @@
 
 namespace CoinsTest\Controller;
 
-use OmekaTestHelper\Controller\OmekaControllerTestCase;
+use Omeka\Test\AbstractHttpControllerTestCase;
 
-abstract class CoinsControllerTestCase extends OmekaControllerTestCase
+abstract class CoinsControllerTestCase extends AbstractHttpControllerTestCase
 {
     protected $items;
     protected $site;
@@ -15,7 +15,9 @@ abstract class CoinsControllerTestCase extends OmekaControllerTestCase
 
         $this->loginAsAdmin();
 
-        $response = $this->api()->create('sites', [
+        $api = $this->getApplication()->getServiceManager()->get('Omeka\ApiManager');
+
+        $response = $api->create('sites', [
             'o:title' => 'Test site',
             'o:slug' => 'test',
             'o:theme' => 'default',
@@ -23,7 +25,7 @@ abstract class CoinsControllerTestCase extends OmekaControllerTestCase
         $this->site = $response->getContent();
 
         for ($i = 0; $i < 10; $i++) {
-            $response = $this->api()->create('items', [
+            $response = $api->create('items', [
                 'dcterms:title' => [
                     [
                         'type' => 'literal',
@@ -31,6 +33,7 @@ abstract class CoinsControllerTestCase extends OmekaControllerTestCase
                         '@value' => sprintf('Test item %d', $i),
                     ],
                 ],
+                'o:site' => [ $this->site->id() ],
             ]);
             $this->items[] = $response->getContent();
         }
@@ -38,9 +41,26 @@ abstract class CoinsControllerTestCase extends OmekaControllerTestCase
 
     public function tearDown()
     {
+        $api = $this->getApplication()->getServiceManager()->get('Omeka\ApiManager');
+
         foreach ($this->items as $item) {
-            $this->api()->delete('items', $item->id());
+            $api->delete('items', $item->id());
         }
-        $this->api()->delete('sites', $this->site->id());
+        $api->delete('sites', $this->site->id());
+    }
+
+    protected function loginAsAdmin()
+    {
+        $this->login('admin@example.com', 'root');
+    }
+
+    protected function login($email, $password)
+    {
+        $serviceLocator = $this->getApplication()->getServiceManager();
+        $auth = $serviceLocator->get('Omeka\AuthenticationService');
+        $adapter = $auth->getAdapter();
+        $adapter->setIdentity($email);
+        $adapter->setCredential($password);
+        return $auth->authenticate();
     }
 }

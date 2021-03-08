@@ -1,6 +1,10 @@
 COinS module for Omeka S
 ========================
 
+> __New versions of this module and support for Omeka S version 3.0 and above
+> are available on [GitLab], which seems to respect users and privacy better
+> than the previous repository.__
+
 [![Build Status](https://travis-ci.org/biblibre/omeka-s-module-Coins.svg?branch=master)](https://travis-ci.org/biblibre/omeka-s-module-Coins)
 
 [COinS] is the module for [Omeka S] that allows to appends the COinS metadata
@@ -10,11 +14,17 @@ automatically in bibliographic tools such as [Zotero].
 This [Omeka S] module is a rewrite of [COinS plugin for Omeka] and
 intends to provide the same features as the original plugin.
 
+The COinS can be accessed via the api with the module [Api Info] through the url
+"/api/infos/coins" + a search query.
+
+This version is a fix / improvement of the module of [BibLibre].
+
 
 Installation
 ------------
 
 Uncompress files in the module directory and rename module folder `Coins`.
+Check the letter case.
 
 See general end user documentation for [installing a module].
 
@@ -31,7 +41,7 @@ your archives regularly so you can roll back if needed.
 Troubleshooting
 ---------------
 
-See online issues on the [module issues] page on GitHub.
+See online issues on the [module issues] page on GitLab.
 
 
 License
@@ -59,7 +69,7 @@ Copyright
 
 * Copyrigh Roy Rosenzweig Center for History and New Media, 2007-2012
 * Copright BibLibre, 2016-2017
-* Copright Daniel Berthereau, 2018-2019 (see [Daniel-KM] on GitHub)
+* Copright Daniel Berthereau, 2018-2021 (see [Daniel-KM] on GitLab)
 
 
 [COinS]: https://github.com/biblibre/omeka-s-module-Coins
@@ -67,7 +77,10 @@ Copyright
 [COinS plugin for Omeka]: http://omeka.org/add-ons/plugins/coins/
 [Omeka S]: https://github.com/omeka/omeka-s
 [Zotero]: https://zotero.org
+[Api Info]: https://gitlab.com/Daniel-KM/Omeka-S-module-ApiInfo
 [installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
-[module issues]: https://github.com/Daniel-KM/Omeka-S-module-Coins/issues
+[module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Coins/-/issues
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
-[Daniel-KM]: https://github.com/Daniel-KM "Daniel Berthereau"
+[BibLibre]: https://github.com/biblibre/omeka-s-module-Coins
+[GitLab]: https://gitlab.com/Daniel-KM
+[Daniel-KM]: https://gitlab.com/Daniel-KM "Daniel Berthereau"

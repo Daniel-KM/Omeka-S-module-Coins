@@ -78,7 +78,7 @@ Copyright
 [Omeka S]: https://github.com/omeka/omeka-s
 [Zotero]: https://zotero.org
 [Api Info]: https://gitlab.com/Daniel-KM/Omeka-S-module-ApiInfo
-[installing a module]: http://dev.omeka.org/docs/s/user-manual/modules/#installing-modules
+[Installing a module]: https://omeka.org/s/docs/user-manual/modules/#installing-modules
 [module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Coins/-/issues
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [BibLibre]: https://github.com/biblibre/omeka-s-module-Coins

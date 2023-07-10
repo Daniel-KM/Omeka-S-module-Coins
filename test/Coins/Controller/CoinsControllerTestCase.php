@@ -1,6 +1,6 @@
 <?php
 
-namespace CoinsTest\Controller;
+namespace Coins\Test\Controller;
 
 use Omeka\Test\AbstractHttpControllerTestCase;
 
@@ -9,7 +9,7 @@ abstract class CoinsControllerTestCase extends AbstractHttpControllerTestCase
     protected $items;
     protected $site;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -39,7 +39,7 @@ abstract class CoinsControllerTestCase extends AbstractHttpControllerTestCase
         }
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $api = $this->getApplication()->getServiceManager()->get('Omeka\ApiManager');
 
@@ -61,6 +61,7 @@ abstract class CoinsControllerTestCase extends AbstractHttpControllerTestCase
         $adapter = $auth->getAdapter();
         $adapter->setIdentity($email);
         $adapter->setCredential($password);
-        return $auth->authenticate();
+        $auth->authenticate();
+        $serviceLocator->get('Omeka\Settings\User')->setTargetId($auth->getIdentity()->getId());
     }
 }

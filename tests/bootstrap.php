@@ -4,7 +4,7 @@ require dirname(__DIR__, 3) . '/bootstrap.php';
 
 // Make sure error reporting is on for testing
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', '1');
 
 // Install a fresh database.
 file_put_contents('php://stdout', "Dropping test database schema...\n");

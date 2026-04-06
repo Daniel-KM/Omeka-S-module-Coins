@@ -1,0 +1,50 @@
+{
+    "name": "daniel-km/omeka-s-module-coins",
+    "type": "omeka-s-module",
+    "description": "Module for Omeka S: Embed COinS (ContextObjects in Spans) in item pages.",
+    "keywords": [
+        "Omeka S",
+        "Omeka S module",
+        "bibliography",
+        "coins",
+        "zotero",
+        "z3988"
+    ],
+    "license": "GPL-3.0-or-later",
+    "homepage": "https://gitlab.com/Daniel-KM/Omeka-S-module-Coins",
+    "authors": [
+        {
+            "name": "Roy Rosenzweig Center for History and New Media",
+            "homepage": "https://rrchnm.org"
+        },
+        {
+            "name": "Julian Maurice",
+            "homepage": "https://biblibre.com"
+        },
+        {
+            "name": "Daniel Berthereau",
+            "email": "Daniel.packagist@Berthereau.net"
+        }
+    ],
+    "support": {
+        "issues": "https://gitlab.com/Daniel-KM/Omeka-S-module-Coins/-/issues",
+        "forum": "https://forum.omeka.org/"
+    },
+    "_require (not set until Omeka S merges PR #2432)": {
+        "omeka/omeka-s": "^4.0",
+        "daniel-km/omeka-s-module-common": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Coins\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CoinsTest\\": "tests/CoinsTest/"
+        }
+    },
+    "extra": {
+        "installer-name": "Coins"
+    }
+}

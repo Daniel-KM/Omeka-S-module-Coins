@@ -5,7 +5,6 @@ COinS module for Omeka S
 > are available on [GitLab], which seems to respect users and privacy better
 > than the previous repository.__
 
-[![Build Status](https://travis-ci.org/biblibre/omeka-s-module-Coins.svg?branch=master)](https://travis-ci.org/biblibre/omeka-s-module-Coins)
 
 [COinS] is the module for [Omeka S] that allows to appends the COinS metadata
 (or [Z39.88-2004]) in the html code of the items, so they can be fetched

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit bootstrap="./tests/bootstrap.php" colors="true" backupGlobals="false">
+<!DOCTYPE phpunit>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.5/phpunit.xsd"
+    colors="true"
+    backupGlobals="false"
+    bootstrap="./tests/bootstrap.php"
+    >
     <testsuites>
-        <testsuite name="Coins">
-            <directory>./tests/Coins</directory>
+        <testsuite name="CoinsTest">
+            <directory suffix="Test.php">./tests/CoinsTest</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="APPLICATION_ENV" value="testing"/>
+        <includePath>./tests</includePath>
+    </php>
 </phpunit>
